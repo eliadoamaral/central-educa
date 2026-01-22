@@ -92,7 +92,7 @@ export const AgriculturalDashboard = () => {
           } else if (field === 'successionLevel') {
             // Handle succession level mapping
             let mappedLevel = participantValue;
-            if (participantValue.includes('Iniciante')) mappedLevel = 'Iniciante';else if (participantValue.includes('Intermediario') || participantValue.includes('Intermediário')) mappedLevel = 'Intermediário';else if (participantValue.includes('Avancado') || participantValue.includes('Avançado')) mappedLevel = 'Avançado';
+            if (participantValue.includes('Iniciante')) mappedLevel = 'Iniciante'; else if (participantValue.includes('Intermediario') || participantValue.includes('Intermediário')) mappedLevel = 'Intermediário'; else if (participantValue.includes('Avancado') || participantValue.includes('Avançado')) mappedLevel = 'Avançado';
             return values.includes(mappedLevel);
           }
           return values.includes(participantValue);
@@ -153,16 +153,16 @@ export const AgriculturalDashboard = () => {
   };
   if (loading) {
     return <div className="min-h-screen bg-gradient-background flex items-center justify-center p-4">
-        <Card className="p-6 md:p-8 shadow-medium max-w-sm w-full">
-          <div className="flex items-center gap-4">
-            <img src={educasafrasLogo} alt="EducaSafras" className="h-8 w-8 animate-pulse" />
-            <div>
-              <h3 className="text-base md:text-lg font-semibold text-foreground">Carregando Dashboard</h3>
-              <p className="text-sm md:text-base text-muted-foreground">Processando dados dos participantes...</p>
-            </div>
+      <Card className="p-6 md:p-8 shadow-medium max-w-sm w-full">
+        <div className="flex items-center gap-4">
+          <img src={educasafrasLogo} alt="EducaSafras" className="h-8 w-8 animate-pulse" />
+          <div>
+            <h3 className="text-base md:text-lg font-semibold text-foreground">Carregando Dashboard</h3>
+            <p className="text-sm md:text-base text-muted-foreground">Processando dados dos participantes...</p>
           </div>
-        </Card>
-      </div>;
+        </div>
+      </Card>
+    </div>;
   }
   const kpiStats = calculateKPIStats();
   const hasActiveFilters = Object.values(filters).some(filter => filter.length > 0);
@@ -555,105 +555,105 @@ export const AgriculturalDashboard = () => {
   const sortedAndFilteredParticipants = sortParticipants(removeDuplicatesFromList(searchParticipants(displayParticipants)));
   const lastUpdated = new Date().toLocaleDateString('pt-BR');
   return <div className="min-h-screen bg-background">
-      {/* Premium Modern Header */}
-      <div className="bg-primary shadow-soft border-b border-border sticky top-0 z-50 backdrop-blur-sm bg-primary/95">
-        <div className="max-w-7xl mx-auto px-6 md:px-8 py-4 md:py-6">
-          <div className="flex items-center justify-between">
-            <div className="flex items-center gap-4 md:gap-6">
-              <Button variant="ghost" size="sm" onClick={() => navigate(-1)} className="text-white hover:bg-white/10 p-2 transition-colors" aria-label="Voltar">
-                <ArrowLeft className="h-5 w-5" />
-              </Button>
-              
-              <div className="space-y-0.5">
-                <h1 className="text-lg md:text-2xl font-bold leading-tight text-white">Mapeamento de Perfil - Sucessores do Agro 2025</h1>
-                <p className="text-xs md:text-sm text-white/80 mt-1">Baseado na resposta dos alunos que participaram do formulário de pesquisa.</p>
-                <a href="https://docs.google.com/spreadsheets/d/1k7AA_HffhXHqx0VMmdsnnp8wKE_K-UYMDnGRx0g14qo/edit?usp=sharing" target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-1.5 text-xs text-white/60 hover:text-white/90 transition-colors mt-1.5">
-                  <FileText className="h-3 w-3" />
-                  Ver planilha de respostas
-                </a>
-                
-              </div>
+    {/* Premium Modern Header */}
+    <div className="bg-primary shadow-soft border-b border-border sticky top-0 z-50 backdrop-blur-sm bg-primary/95">
+      <div className="max-w-7xl mx-auto px-6 md:px-8 py-4 md:py-6">
+        <div className="flex items-center justify-between">
+          <div className="flex items-center gap-4 md:gap-6">
+            <Button variant="ghost" size="sm" onClick={() => navigate(-1)} className="text-white hover:bg-white/10 p-2 transition-colors" aria-label="Voltar">
+              <ArrowLeft className="h-5 w-5" />
+            </Button>
+
+            <div className="space-y-0.5">
+              <h1 className="text-lg md:text-2xl font-bold leading-tight text-white">Mapeamento de Perfil - Sucessores do Agro 2025</h1>
+              <p className="text-xs md:text-sm text-white/80 mt-1">Baseado na resposta dos alunos que participaram do formulário de pesquisa.</p>
+              <a href="https://docs.google.com/spreadsheets/d/1k7AA_HffhXHqx0VMmdsnnp8wKE_K-UYMDnGRx0g14qo/edit?usp=sharing" target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-1.5 text-xs text-white/60 hover:text-white/90 transition-colors mt-1.5">
+                <FileText className="h-3 w-3" />
+                Ver planilha de respostas
+              </a>
+
             </div>
-            <div className="flex items-center gap-2 md:gap-3">
-              {/* Filtros Button - Hidden */}
-            </div>
+          </div>
+          <div className="flex items-center gap-2 md:gap-3">
+            {/* Filtros Button - Hidden */}
           </div>
         </div>
       </div>
+    </div>
 
-      {/* Active Filters Bar */}
-      <ActiveFiltersBar filters={filters} onRemoveFilter={handleRemoveFilter} onClearAll={handleClearAllFilters} />
+    {/* Active Filters Bar */}
+    <ActiveFiltersBar filters={filters} onRemoveFilter={handleRemoveFilter} onClearAll={handleClearAllFilters} />
 
-      {/* Filters Slide Over Panel */}
-      <Sheet open={filtersOpen} onOpenChange={setFiltersOpen}>
-        <SheetContent side="right" className="w-full sm:w-[400px] md:w-[480px] p-0 overflow-y-auto">
-          <SheetHeader className="p-6 border-b sticky top-0 bg-background z-10">
-            <SheetTitle className="flex items-center gap-2 text-lg">
-              <Filter className="h-5 w-5" />
-              Filtros
-            </SheetTitle>
-          </SheetHeader>
-          <div className="p-6">
-            <DashboardSidebar participants={participants} filters={filters} onFiltersChange={setFilters} />
-          </div>
-        </SheetContent>
-      </Sheet>
+    {/* Filters Slide Over Panel */}
+    <Sheet open={filtersOpen} onOpenChange={setFiltersOpen}>
+      <SheetContent side="right" className="w-full sm:w-[400px] md:w-[480px] p-0 overflow-y-auto">
+        <SheetHeader className="p-6 border-b sticky top-0 bg-background z-10">
+          <SheetTitle className="flex items-center gap-2 text-lg">
+            <Filter className="h-5 w-5" />
+            Filtros
+          </SheetTitle>
+        </SheetHeader>
+        <div className="p-6">
+          <DashboardSidebar participants={participants} filters={filters} onFiltersChange={setFilters} />
+        </div>
+      </SheetContent>
+    </Sheet>
 
-      <div className="max-w-7xl mx-auto px-6 md:px-8 py-6 md:py-8">
-        <div className="w-full space-y-6">
-            {/* Overview Cards */}
-            <section className="animate-fade-in">
-              <h2 className="text-2xl font-bold text-foreground mb-6">Visão geral</h2>
-              <OverviewCards stats={kpiStats} />
-            </section>
+    <div className="max-w-7xl mx-auto px-6 md:px-8 py-6 md:py-8">
+      <div className="w-full space-y-6">
+        {/* Overview Cards */}
+        <section className="animate-fade-in">
+          <h2 className="text-2xl font-bold text-foreground mb-6">Visão geral</h2>
+          <OverviewCards stats={kpiStats} />
+        </section>
 
-            {/* Brazil Map */}
-            <section className="animate-fade-in" style={{
+        {/* Brazil Map */}
+        <section className="animate-fade-in" style={{
           animationDelay: '100ms'
         }}>
-              
-              <BrazilMap stateData={stateDataOverride} cityData={cityData} />
-            </section>
 
-            {/* Charts Grid */}
-            <section className="animate-fade-in" style={{
+          <BrazilMap stateData={stateDataOverride} cityData={cityData} />
+        </section>
+
+        {/* Charts Grid */}
+        <section className="animate-fade-in" style={{
           animationDelay: '150ms'
         }}>
-              
-              <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-                <DonutChart title="Gênero" data={genderDataOverride} colors={["hsl(var(--gender-male))", "hsl(var(--gender-female))"]} centerLabel={`M ${kpiStats.malePercentage}% / F ${kpiStats.femalePercentage}%`} />
-                <HorizontalBarChart title="Faixa Etária" data={ageDataOverride} customOrder={["21 a 30 anos", "31 a 40 anos", "41 a 50 anos", "Menos de 20 anos", "51 a 60 anos", "Mais de 60 anos"]} useGreenGradient={true} />
-                <HorizontalBarChart title="Experiência no Agro" data={experienceDataOverride} />
-                <HorizontalBarChart title="Nível de Sucessão" data={successionDataOverride} />
-              </div>
-            </section>
 
-            {/* Analysis Grid */}
-            <section className="animate-fade-in" style={{
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+            <DonutChart title="Gênero" data={genderDataOverride} colors={["hsl(var(--gender-male))", "hsl(var(--gender-female))"]} centerLabel={`M ${kpiStats.malePercentage}% / F ${kpiStats.femalePercentage}%`} />
+            <HorizontalBarChart title="Faixa Etária" data={ageDataOverride} customOrder={["21 a 30 anos", "31 a 40 anos", "41 a 50 anos", "Menos de 20 anos", "51 a 60 anos", "Mais de 60 anos"]} useGreenGradient={true} />
+            <HorizontalBarChart title="Experiência no Agro" data={experienceDataOverride} />
+            <HorizontalBarChart title="Nível de Sucessão" data={successionDataOverride} />
+          </div>
+        </section>
+
+        {/* Analysis Grid */}
+        <section className="animate-fade-in" style={{
           animationDelay: '200ms'
         }}>
-              <h2 className="text-2xl font-bold text-foreground mb-6">Análise detalhada</h2>
-              <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-                <HorizontalBarChart title="Profissão / Papel Principal" data={professionDataOverride} maxItems={10} />
-                <HorizontalBarChart title="Principais atividades" data={activitiesDataOverride} maxItems={10} />
-                <HorizontalBarChart title="Objetivo principal" data={objectivesDataOverride} maxItems={10} />
-                <HorizontalBarChart title="Tema de maior interesse" data={interestsDataOverride} maxItems={10} />
-              </div>
-            </section>
+          <h2 className="text-2xl font-bold text-foreground mb-6">Análise detalhada</h2>
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+            <HorizontalBarChart title="Profissão / Papel Principal" data={professionDataOverride} maxItems={10} />
+            <HorizontalBarChart title="Principais atividades" data={activitiesDataOverride} maxItems={10} />
+            <HorizontalBarChart title="Objetivo principal" data={objectivesDataOverride} maxItems={10} />
+            <HorizontalBarChart title="Tema de maior interesse" data={interestsDataOverride} maxItems={10} />
+          </div>
+        </section>
 
-            {/* Suggested Topics Section */}
-            <SuggestedTopicsCard participants={filteredParticipants} />
+        {/* Suggested Topics Section */}
+        <SuggestedTopicsCard participants={filteredParticipants} />
 
-            {/* Insights Section */}
-            {/* <section className="animate-fade-in" style={{
+        {/* Insights Section */}
+        {/* <section className="animate-fade-in" style={{
              animationDelay: '300ms'
              }}>
               <h2 className="text-2xl font-bold text-foreground mb-6">Insights principais</h2>
               <InsightsCard participants={filteredParticipants} />
              </section> */}
 
-            {/* Prospecting Section */}
-            {/* <section className="animate-fade-in" style={{
+        {/* Prospecting Section */}
+        {/* <section className="animate-fade-in" style={{
              animationDelay: '400ms'
              }}>
               <h2 className="text-2xl font-bold text-foreground mb-6">Oportunidades de prospecção</h2>
@@ -666,18 +666,18 @@ export const AgriculturalDashboard = () => {
              </section> */}
 
 
-            {/* Participants List Section */}
-            <section className="animate-fade-in" style={{
+        {/* Participants List Section */}
+        <section className="animate-fade-in" style={{
           animationDelay: '450ms'
         }}>
-              <Card className="p-6">
-                <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4 mb-6">
-                  <div>
-                    <h2 className="text-2xl font-bold text-foreground">Lista de Participantes</h2>
-                    <p className="text-sm text-muted-foreground mt-1">Conheça o perfil individual dos alunos</p>
-                  </div>
-                  <div className="flex gap-2">
-                    <Button variant="outline" size="sm" onClick={() => {
+          <Card className="p-6">
+            <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4 mb-6">
+              <div>
+                <h2 className="text-2xl font-bold text-foreground">Lista de Participantes</h2>
+                <p className="text-sm text-muted-foreground mt-1">Conheça o perfil individual dos alunos</p>
+              </div>
+              <div className="flex gap-2">
+                <Button variant="outline" size="sm" onClick={() => {
                   const csv = [["Nome", "Idade", "Gênero", "Cidade", "Estado", "Cliente S&C", "Experiência", "Atividades", "Objetivo", "Nível Sucessão", "Interesse"], ...filteredParticipants.map(p => [p.name, p.age, p.gender, p.city, p.state, p.isClient?.toLowerCase().includes('sim') ? 'Sim' : 'Não', p.experience, p.activities, p.objectives, p.successionLevel, p.interests])].map(row => row.join(";")).join("\n");
                   const blob = new Blob([csv], {
                     type: 'text/csv'
@@ -689,62 +689,63 @@ export const AgriculturalDashboard = () => {
                   a.click();
                   toast.success("CSV exportado com sucesso!");
                 }}>
-                      <Download className="h-4 w-4 mr-2" />
-                      Exportar CSV
-                    </Button>
-                    <Button variant="default" size="sm" onClick={() => setParticipantsListExpanded(!participantsListExpanded)}>
-                      {participantsListExpanded ? <ChevronUp className="h-4 w-4 mr-2" /> : <ChevronDown className="h-4 w-4 mr-2" />}
-                      {participantsListExpanded ? 'Recolher' : 'Expandir'}
-                    </Button>
-                  </div>
-                </div>
+                  <Download className="h-4 w-4 mr-2" />
+                  Exportar CSV
+                </Button>
+                <Button variant="default" size="sm" onClick={() => setParticipantsListExpanded(!participantsListExpanded)}>
+                  {participantsListExpanded ? <ChevronUp className="h-4 w-4 mr-2" /> : <ChevronDown className="h-4 w-4 mr-2" />}
+                  {participantsListExpanded ? 'Recolher' : 'Expandir'}
+                </Button>
+              </div>
+            </div>
 
-                {participantsListExpanded && <>
-                    <div className="mb-4 space-y-3">
-                      <div className="flex flex-col sm:flex-row gap-2">
-                        <div className="relative flex-1">
-                          <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-muted-foreground" />
-                          <input type="text" placeholder="Buscar por nome, cidade ou estado..." value={searchTerm} onChange={e => setSearchTerm(e.target.value)} className="w-full pl-10 pr-4 py-2 border border-input rounded-md bg-background text-sm focus:outline-none focus-visible:border-ring transition-colors" />
-                        </div>
-                        
-                      </div>
-                      <p className="text-xs text-muted-foreground">
-                        {sortedAndFilteredParticipants.length} de 59 participantes
-                      </p>
-                    </div>
-                    
-                    <div className="rounded-md border overflow-hidden">
-                    <TooltipProvider>
+            {participantsListExpanded && <>
+              <div className="mb-4 space-y-3">
+                <div className="flex flex-col sm:flex-row gap-2">
+                  <div className="relative flex-1">
+                    <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-muted-foreground" />
+                    <input type="text" placeholder="Buscar por nome, cidade ou estado..." value={searchTerm} onChange={e => setSearchTerm(e.target.value)} className="w-full pl-10 pr-4 py-2 border border-input rounded-md bg-background text-sm focus:outline-none focus-visible:border-ring transition-colors" />
+                  </div>
+
+                </div>
+                <p className="text-xs text-muted-foreground">
+                  {sortedAndFilteredParticipants.length} de 59 participantes
+                </p>
+              </div>
+
+              <div className="rounded-md border overflow-hidden">
+                <TooltipProvider>
+                  <div className="overflow-x-auto">
                     <Table>
                       <TableHeader>
                         <TableRow className="bg-muted/50">
                           <TableHead className="w-[40px]"></TableHead>
-                          
-                          <TableHead className="cursor-pointer hover:bg-muted/80 select-none transition-colors" onClick={() => handleSort('name')} role="button" aria-label="Ordenar por nome">
+
+                          <TableHead className="cursor-pointer hover:bg-muted/80 select-none transition-colors whitespace-nowrap" onClick={() => handleSort('name')} role="button" aria-label="Ordenar por nome">
                             <div className="flex items-center gap-2">
                               <span className={sortConfig.key === 'name' ? 'font-semibold' : ''}>Nome</span>
                               {sortConfig.direction === 'asc' ? <ArrowUp className={`h-4 w-4 ${sortConfig.key === 'name' ? '' : 'opacity-40'}`} /> : <ArrowDown className={`h-4 w-4 ${sortConfig.key === 'name' ? '' : 'opacity-40'}`} />}
                             </div>
                           </TableHead>
-                          <TableHead className="cursor-pointer hover:bg-muted/80 select-none transition-colors" onClick={() => handleSort('age')} role="button" aria-label="Ordenar por idade">
+                          <TableHead className="cursor-pointer hover:bg-muted/80 select-none transition-colors whitespace-nowrap" onClick={() => handleSort('age')} role="button" aria-label="Ordenar por idade">
                             <div className="flex items-center gap-2">
                               <span className={sortConfig.key === 'age' ? 'font-semibold' : ''}>Idade</span>
                               {sortConfig.direction === 'asc' ? <ArrowUp className={`h-4 w-4 ${sortConfig.key === 'age' ? '' : 'opacity-40'}`} /> : <ArrowDown className={`h-4 w-4 ${sortConfig.key === 'age' ? '' : 'opacity-40'}`} />}
                             </div>
                           </TableHead>
-                          <TableHead className="cursor-pointer hover:bg-muted/80 select-none transition-colors" onClick={() => handleSort('city')} role="button" aria-label="Ordenar por cidade">
+                          <TableHead className="cursor-pointer hover:bg-muted/80 select-none transition-colors whitespace-nowrap" onClick={() => handleSort('city')} role="button" aria-label="Ordenar por cidade">
                             <div className="flex items-center gap-2">
                               <span className={sortConfig.key === 'city' ? 'font-semibold' : ''}>Cidade</span>
                               {sortConfig.direction === 'asc' ? <ArrowUp className={`h-4 w-4 ${sortConfig.key === 'city' ? '' : 'opacity-40'}`} /> : <ArrowDown className={`h-4 w-4 ${sortConfig.key === 'city' ? '' : 'opacity-40'}`} />}
                             </div>
                           </TableHead>
-                          <TableHead className="cursor-pointer hover:bg-muted/80 select-none transition-colors" onClick={() => handleSort('state')} role="button" aria-label="Ordenar por estado">
+                          <TableHead className="cursor-pointer hover:bg-muted/80 select-none transition-colors whitespace-nowrap" onClick={() => handleSort('state')} role="button" aria-label="Ordenar por estado">
                             <div className="flex items-center gap-2">
                               <span className={sortConfig.key === 'state' ? 'font-semibold' : ''}>Estado</span>
                               {sortConfig.direction === 'asc' ? <ArrowUp className={`h-4 w-4 ${sortConfig.key === 'state' ? '' : 'opacity-40'}`} /> : <ArrowDown className={`h-4 w-4 ${sortConfig.key === 'state' ? '' : 'opacity-40'}`} />}
                             </div>
                           </TableHead>
-                          <TableHead className="cursor-pointer hover:bg-muted/80 select-none transition-colors" onClick={() => handleSort('isClient')} role="button" aria-label="Ordenar por cliente S&C">
+                          <TableHead className="cursor-pointer hover:bg-muted/80 select-none transition-colors whitespace-nowrap" onClick={() => handleSort('isClient')} role="button" aria-label="Ordenar por cliente S&C">
                             <div className="flex items-center gap-2">
                               <span className={sortConfig.key === 'isClient' ? 'font-semibold' : ''}>Cliente S&C</span>
                               {sortConfig.direction === 'asc' ? <ArrowUp className={`h-4 w-4 ${sortConfig.key === 'isClient' ? '' : 'opacity-40'}`} /> : <ArrowDown className={`h-4 w-4 ${sortConfig.key === 'isClient' ? '' : 'opacity-40'}`} />}
@@ -754,85 +755,85 @@ export const AgriculturalDashboard = () => {
                       </TableHeader>
                       <TableBody>
                         {sortedAndFilteredParticipants.map(participant => {
-                        const isExpanded = expandedRows.has(participant.id);
-                        const lc = participant.isClient?.toLowerCase().trim() || '';
-                        const isClient = lc === 'sim, ja sou cliente' || lc === 'sim, já sou cliente' || lc === 'sim';
-                        const isProspect = !isClient;
-                        return <>
-                              <TableRow key={participant.id} className={`hover:bg-muted/70 cursor-pointer transition-colors ${isProspect ? 'bg-primary/5 border-l-4 border-l-primary/40' : ''}`} onClick={() => {
-                            const newExpanded = new Set(expandedRows);
-                            if (isExpanded) {
-                              newExpanded.delete(participant.id);
-                            } else {
-                              newExpanded.add(participant.id);
-                            }
-                            setExpandedRows(newExpanded);
-                          }}>
-                                <TableCell>
-                                  <Eye className="h-4 w-4 text-muted-foreground" />
-                                </TableCell>
-                                
-                                <TableCell className="font-medium">{participant.name}</TableCell>
-                                <TableCell>{participant.age}</TableCell>
-                                <TableCell>{participant.city}</TableCell>
-                                <TableCell>{participant.state}</TableCell>
-                                <TableCell>
-                                  <Badge variant={isClient ? "default" : "secondary"} className={isClient ? "bg-green-500 hover:bg-green-600" : ""}>
-                                    {isClient ? 'Sim' : 'Não'}
-                                  </Badge>
-                                </TableCell>
-                              </TableRow>
-                              {isExpanded && <TableRow key={`${participant.id}-details`}>
-                                  <TableCell colSpan={7} className="bg-muted/20 p-4">
-                                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                                      <div>
-                                        <p className="text-xs font-semibold text-muted-foreground mb-1">Respondeu Formulário</p>
-                                        <Badge variant={participant.hasResponded ? "default" : "secondary"} className={participant.hasResponded ? "bg-green-500" : ""}>
-                                          {participant.hasResponded ? 'Sim' : 'Não'}
-                                        </Badge>
-                                      </div>
-                                      <div>
-                                        <p className="text-xs font-semibold text-muted-foreground mb-1">Tempo de Experiência</p>
-                                        <p className="text-sm">{participant.experience}</p>
-                                      </div>
-                                      <div>
-                                        <p className="text-xs font-semibold text-muted-foreground mb-1">Principais Atividades</p>
-                                        <p className="text-sm">{participant.activities}</p>
-                                      </div>
-                                      <div>
-                                        <p className="text-xs font-semibold text-muted-foreground mb-1">Objetivo Principal</p>
-                                        <p className="text-sm">{participant.objectives}</p>
-                                      </div>
-                                      <div>
-                                        <p className="text-xs font-semibold text-muted-foreground mb-1">Nível de Sucessão</p>
-                                        <p className="text-sm">{participant.successionLevel}</p>
-                                      </div>
-                                      <div>
-                                        <p className="text-xs font-semibold text-muted-foreground mb-1">Tema de Maior Interesse</p>
-                                        <p className="text-sm">{participant.interests}</p>
-                                      </div>
-                                    </div>
-                                  </TableCell>
-                                </TableRow>}
-                            </>;
-                      })}
+                          const isExpanded = expandedRows.has(participant.id);
+                          const lc = participant.isClient?.toLowerCase().trim() || '';
+                          const isClient = lc === 'sim, ja sou cliente' || lc === 'sim, já sou cliente' || lc === 'sim';
+                          const isProspect = !isClient;
+                          return <>
+                            <TableRow key={participant.id} className={`hover:bg-muted/70 cursor-pointer transition-colors ${isProspect ? 'bg-primary/5 border-l-4 border-l-primary/40' : ''}`} onClick={() => {
+                              const newExpanded = new Set(expandedRows);
+                              if (isExpanded) {
+                                newExpanded.delete(participant.id);
+                              } else {
+                                newExpanded.add(participant.id);
+                              }
+                              setExpandedRows(newExpanded);
+                            }}>
+                              <TableCell>
+                                <Eye className="h-4 w-4 text-muted-foreground" />
+                              </TableCell>
+
+                              <TableCell className="font-medium whitespace-nowrap">{participant.name}</TableCell>
+                              <TableCell>{participant.age}</TableCell>
+                              <TableCell className="whitespace-nowrap">{participant.city}</TableCell>
+                              <TableCell>{participant.state}</TableCell>
+                              <TableCell>
+                                <Badge variant={isClient ? "default" : "secondary"} className={isClient ? "bg-green-500 hover:bg-green-600" : ""}>
+                                  {isClient ? 'Sim' : 'Não'}
+                                </Badge>
+                              </TableCell>
+                            </TableRow>
+                            {isExpanded && <TableRow key={`${participant.id}-details`}>
+                              <TableCell colSpan={7} className="bg-muted/20 p-4">
+                                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                  <div>
+                                    <p className="text-xs font-semibold text-muted-foreground mb-1">Respondeu Formulário</p>
+                                    <Badge variant={participant.hasResponded ? "default" : "secondary"} className={participant.hasResponded ? "bg-green-500" : ""}>
+                                      {participant.hasResponded ? 'Sim' : 'Não'}
+                                    </Badge>
+                                  </div>
+                                  <div>
+                                    <p className="text-xs font-semibold text-muted-foreground mb-1">Tempo de Experiência</p>
+                                    <p className="text-sm">{participant.experience}</p>
+                                  </div>
+                                  <div>
+                                    <p className="text-xs font-semibold text-muted-foreground mb-1">Principais Atividades</p>
+                                    <p className="text-sm">{participant.activities}</p>
+                                  </div>
+                                  <div>
+                                    <p className="text-xs font-semibold text-muted-foreground mb-1">Objetivo Principal</p>
+                                    <p className="text-sm">{participant.objectives}</p>
+                                  </div>
+                                  <div>
+                                    <p className="text-xs font-semibold text-muted-foreground mb-1">Nível de Sucessão</p>
+                                    <p className="text-sm">{participant.successionLevel}</p>
+                                  </div>
+                                  <div>
+                                    <p className="text-xs font-semibold text-muted-foreground mb-1">Tema de Maior Interesse</p>
+                                    <p className="text-sm">{participant.interests}</p>
+                                  </div>
+                                </div>
+                              </TableCell>
+                            </TableRow>}
+                          </>;
+                        })}
                       </TableBody>
                     </Table>
-                    </TooltipProvider>
-                    </div>
-                  </>}
-              </Card>
-            </section>
-        </div>
+                </TooltipProvider>
+              </div>
+            </>}
+          </Card>
+        </section>
       </div>
+    </div>
 
-      {/* AI Insights Floating Button */}
-      <Button onClick={() => setAiDrawerOpen(true)} size="lg" className="fixed bottom-4 right-4 sm:bottom-6 sm:right-6 rounded-full w-14 h-14 shadow-lg hover:shadow-xl hover:scale-110 active:scale-95 transition-all z-50" aria-label="Abrir assistente de IA">
-        <Sparkles className="w-6 h-6" />
-      </Button>
+    {/* AI Insights Floating Button */}
+    <Button onClick={() => setAiDrawerOpen(true)} size="lg" className="fixed bottom-4 right-4 sm:bottom-6 sm:right-6 rounded-full w-14 h-14 shadow-lg hover:shadow-xl hover:scale-110 active:scale-95 transition-all z-50" aria-label="Abrir assistente de IA">
+      <Sparkles className="w-6 h-6" />
+    </Button>
 
-      {/* AI Insights Drawer */}
-      <AIInsightsDrawer open={aiDrawerOpen} onOpenChange={setAiDrawerOpen} context={{
+    {/* AI Insights Drawer */}
+    <AIInsightsDrawer open={aiDrawerOpen} onOpenChange={setAiDrawerOpen} context={{
       dashboardType: 'profile',
       totalParticipants: 59,
       filters: Object.fromEntries(Object.entries(filters).filter(([_, values]) => values.length > 0)),
@@ -849,5 +850,5 @@ export const AgriculturalDashboard = () => {
         topInterests: calculateChartData(filteredParticipants, 'interests').slice(0, 5)
       }
     }} />
-    </div>;
+  </div>;
 };

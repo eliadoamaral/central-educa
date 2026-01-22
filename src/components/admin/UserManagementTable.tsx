@@ -63,17 +63,17 @@ export function UserManagementTable({ onViewDetails, onUserChanged }: UserManage
     changeSorting,
     refresh,
   } = useAdminUsers();
-  
+
   const [pendingAction, setPendingAction] = useState<RoleAction | null>(null);
 
   const getInitials = (name: string) => name.split(' ').map(n => n[0]).join('').substring(0, 2).toUpperCase();
 
   const handleConfirmAction = async () => {
     if (!pendingAction) return;
-    
+
     const { user, action } = pendingAction;
     let success = false;
-    
+
     switch (action) {
       case 'promoteToUser':
         success = await promoteToUser(user.id);
@@ -91,7 +91,7 @@ export function UserManagementTable({ onViewDetails, onUserChanged }: UserManage
         success = await deleteUser(user.id);
         break;
     }
-    
+
     if (success) {
       refresh();
       onUserChanged?.();
@@ -101,9 +101,9 @@ export function UserManagementTable({ onViewDetails, onUserChanged }: UserManage
 
   const getActionDialogContent = () => {
     if (!pendingAction) return { title: '', description: '' };
-    
+
     const { user, action } = pendingAction;
-    
+
     switch (action) {
       case 'promoteToUser':
         return {
@@ -162,118 +162,120 @@ export function UserManagementTable({ onViewDetails, onUserChanged }: UserManage
             </div>
           ) : (
             <>
-              <div className="rounded-md border">
-                <Table>
-                  <TableHeader>
-                    <TableRow>
-                      <TableHead>
-                        <Button variant="ghost" size="sm" onClick={() => changeSorting('name')} className="gap-2">
-                          Usuário <ArrowUpDown className="h-4 w-4" />
-                        </Button>
-                      </TableHead>
-                      <TableHead>
-                        <Button variant="ghost" size="sm" onClick={() => changeSorting('role')} className="gap-2">
-                          Perfil <ArrowUpDown className="h-4 w-4" />
-                        </Button>
-                      </TableHead>
-                      <TableHead>
-                        <Button variant="ghost" size="sm" onClick={() => changeSorting('total_logins')} className="gap-2">
-                          Logins <ArrowUpDown className="h-4 w-4" />
-                        </Button>
-                      </TableHead>
-                      <TableHead>
-                        <Button variant="ghost" size="sm" onClick={() => changeSorting('last_login')} className="gap-2">
-                          Último Login <ArrowUpDown className="h-4 w-4" />
-                        </Button>
-                      </TableHead>
-                      <TableHead className="text-right">Ações</TableHead>
-                    </TableRow>
-                  </TableHeader>
-                  <TableBody>
-                    {users.length === 0 ? (
-                      <TableRow><TableCell colSpan={5} className="text-center">Nenhum usuário encontrado</TableCell></TableRow>
-                    ) : (
-                      users.map((user) => (
-                        <TableRow key={user.id}>
-                          <TableCell>
-                            <div className="flex items-center gap-3">
-                              <Avatar><AvatarFallback>{getInitials(user.name)}</AvatarFallback></Avatar>
-                              <div>
-                                <p className="font-medium">{user.name}</p>
-                                <p className="text-sm text-muted-foreground">{user.email}</p>
+              <div className="rounded-md border bg-card overflow-hidden">
+                <div className="overflow-x-auto">
+                  <Table>
+                    <TableHeader>
+                      <TableRow>
+                        <TableHead>
+                          <Button variant="ghost" size="sm" onClick={() => changeSorting('name')} className="gap-2 whitespace-nowrap">
+                            Usuário <ArrowUpDown className="h-4 w-4" />
+                          </Button>
+                        </TableHead>
+                        <TableHead>
+                          <Button variant="ghost" size="sm" onClick={() => changeSorting('role')} className="gap-2 whitespace-nowrap">
+                            Perfil <ArrowUpDown className="h-4 w-4" />
+                          </Button>
+                        </TableHead>
+                        <TableHead>
+                          <Button variant="ghost" size="sm" onClick={() => changeSorting('total_logins')} className="gap-2 whitespace-nowrap">
+                            Logins <ArrowUpDown className="h-4 w-4" />
+                          </Button>
+                        </TableHead>
+                        <TableHead>
+                          <Button variant="ghost" size="sm" onClick={() => changeSorting('last_login')} className="gap-2 whitespace-nowrap">
+                            Último Login <ArrowUpDown className="h-4 w-4" />
+                          </Button>
+                        </TableHead>
+                        <TableHead className="text-right whitespace-nowrap">Ações</TableHead>
+                      </TableRow>
+                    </TableHeader>
+                    <TableBody>
+                      {users.length === 0 ? (
+                        <TableRow><TableCell colSpan={5} className="text-center">Nenhum usuário encontrado</TableCell></TableRow>
+                      ) : (
+                        users.map((user) => (
+                          <TableRow key={user.id}>
+                            <TableCell>
+                              <div className="flex items-center gap-3">
+                                <Avatar><AvatarFallback>{getInitials(user.name)}</AvatarFallback></Avatar>
+                                <div>
+                                  <p className="font-medium whitespace-nowrap">{user.name}</p>
+                                  <p className="text-sm text-muted-foreground whitespace-nowrap">{user.email}</p>
+                                </div>
                               </div>
-                            </div>
-                          </TableCell>
-                          <TableCell>
-                            <Badge variant={ROLE_BADGE_VARIANT[user.role] || 'outline'}>
-                              {ROLE_LABELS[user.role] || user.role}
-                            </Badge>
-                          </TableCell>
-                          <TableCell>{user.total_logins}</TableCell>
-                          <TableCell className="text-sm">
-                            {user.last_login ? format(new Date(user.last_login), "dd/MM/yyyy HH:mm", { locale: ptBR }) : 'Nunca'}
-                          </TableCell>
-                          <TableCell className="text-right">
-                            <div className="flex items-center justify-end gap-2">
-                              <Button onClick={() => onViewDetails(user)} variant="ghost" size="sm"><Eye className="h-4 w-4" /></Button>
-                              {currentUser?.id !== user.id && (
-                                <DropdownMenu>
-                                  <DropdownMenuTrigger asChild>
-                                    <Button variant="ghost" size="sm" disabled={actionLoading}><MoreVertical className="h-4 w-4" /></Button>
-                                  </DropdownMenuTrigger>
-                                  <DropdownMenuContent align="end">
-                                    {/* Viewer actions */}
-                                    {(user.role as string) === 'viewer' && (
-                                      <>
-                                        <DropdownMenuItem onClick={() => setPendingAction({ user, action: 'promoteToUser' })}>
-                                          <UserCheck className="h-4 w-4 mr-2" />
-                                          Conceder Acesso Completo
+                            </TableCell>
+                            <TableCell>
+                              <Badge variant={ROLE_BADGE_VARIANT[user.role] || 'outline'}>
+                                {ROLE_LABELS[user.role] || user.role}
+                              </Badge>
+                            </TableCell>
+                            <TableCell>{user.total_logins}</TableCell>
+                            <TableCell className="text-sm whitespace-nowrap">
+                              {user.last_login ? format(new Date(user.last_login), "dd/MM/yyyy HH:mm", { locale: ptBR }) : 'Nunca'}
+                            </TableCell>
+                            <TableCell className="text-right">
+                              <div className="flex items-center justify-end gap-2">
+                                <Button onClick={() => onViewDetails(user)} variant="ghost" size="sm"><Eye className="h-4 w-4" /></Button>
+                                {currentUser?.id !== user.id && (
+                                  <DropdownMenu>
+                                    <DropdownMenuTrigger asChild>
+                                      <Button variant="ghost" size="sm" disabled={actionLoading}><MoreVertical className="h-4 w-4" /></Button>
+                                    </DropdownMenuTrigger>
+                                    <DropdownMenuContent align="end">
+                                      {/* Viewer actions */}
+                                      {(user.role as string) === 'viewer' && (
+                                        <>
+                                          <DropdownMenuItem onClick={() => setPendingAction({ user, action: 'promoteToUser' })}>
+                                            <UserCheck className="h-4 w-4 mr-2" />
+                                            Conceder Acesso Completo
+                                          </DropdownMenuItem>
+                                          <DropdownMenuItem onClick={() => setPendingAction({ user, action: 'promoteToAdmin' })}>
+                                            <ShieldCheck className="h-4 w-4 mr-2" />
+                                            Tornar Admin
+                                          </DropdownMenuItem>
+                                        </>
+                                      )}
+
+                                      {/* User actions */}
+                                      {(user.role as string) === 'user' && (
+                                        <>
+                                          <DropdownMenuItem onClick={() => setPendingAction({ user, action: 'promoteToAdmin' })}>
+                                            <ShieldCheck className="h-4 w-4 mr-2" />
+                                            Tornar Admin
+                                          </DropdownMenuItem>
+                                          <DropdownMenuItem onClick={() => setPendingAction({ user, action: 'demoteToViewer' })}>
+                                            <UserX className="h-4 w-4 mr-2" />
+                                            Restringir Acesso
+                                          </DropdownMenuItem>
+                                        </>
+                                      )}
+
+                                      {/* Admin actions */}
+                                      {(user.role as string) === 'admin' && (
+                                        <DropdownMenuItem onClick={() => setPendingAction({ user, action: 'demoteToUser' })}>
+                                          <ShieldMinus className="h-4 w-4 mr-2" />
+                                          Remover Admin
                                         </DropdownMenuItem>
-                                        <DropdownMenuItem onClick={() => setPendingAction({ user, action: 'promoteToAdmin' })}>
-                                          <ShieldCheck className="h-4 w-4 mr-2" />
-                                          Tornar Admin
-                                        </DropdownMenuItem>
-                                      </>
-                                    )}
-                                    
-                                    {/* User actions */}
-                                    {(user.role as string) === 'user' && (
-                                      <>
-                                        <DropdownMenuItem onClick={() => setPendingAction({ user, action: 'promoteToAdmin' })}>
-                                          <ShieldCheck className="h-4 w-4 mr-2" />
-                                          Tornar Admin
-                                        </DropdownMenuItem>
-                                        <DropdownMenuItem onClick={() => setPendingAction({ user, action: 'demoteToViewer' })}>
-                                          <UserX className="h-4 w-4 mr-2" />
-                                          Restringir Acesso
-                                        </DropdownMenuItem>
-                                      </>
-                                    )}
-                                    
-                                    {/* Admin actions */}
-                                    {(user.role as string) === 'admin' && (
-                                      <DropdownMenuItem onClick={() => setPendingAction({ user, action: 'demoteToUser' })}>
-                                        <ShieldMinus className="h-4 w-4 mr-2" />
-                                        Remover Admin
+                                      )}
+
+                                      <DropdownMenuSeparator />
+                                      <DropdownMenuItem onClick={() => setPendingAction({ user, action: 'delete' })} className="text-destructive">
+                                        <Trash2 className="h-4 w-4 mr-2" />Excluir
                                       </DropdownMenuItem>
-                                    )}
-                                    
-                                    <DropdownMenuSeparator />
-                                    <DropdownMenuItem onClick={() => setPendingAction({ user, action: 'delete' })} className="text-destructive">
-                                      <Trash2 className="h-4 w-4 mr-2" />Excluir
-                                    </DropdownMenuItem>
-                                  </DropdownMenuContent>
-                                </DropdownMenu>
-                              )}
-                            </div>
-                          </TableCell>
-                        </TableRow>
-                      ))
-                    )}
-                  </TableBody>
-                </Table>
+                                    </DropdownMenuContent>
+                                  </DropdownMenu>
+                                )}
+                              </div>
+                            </TableCell>
+                          </TableRow>
+                        ))
+                      )}
+                    </TableBody>
+                  </Table>
+                </div>
               </div>
-            
+
               {users.length > 0 && (
                 <PaginationControls currentPage={currentPage} totalPages={totalPages} pageSize={pageSize} totalCount={totalCount} onPageChange={goToPage} onPageSizeChange={changePageSize} />
               )}
@@ -292,8 +294,8 @@ export function UserManagementTable({ onViewDetails, onUserChanged }: UserManage
           </AlertDialogHeader>
           <AlertDialogFooter>
             <AlertDialogCancel>Cancelar</AlertDialogCancel>
-            <AlertDialogAction 
-              onClick={handleConfirmAction} 
+            <AlertDialogAction
+              onClick={handleConfirmAction}
               className={pendingAction?.action === 'delete' ? 'bg-destructive' : ''}
             >
               Confirmar

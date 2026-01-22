@@ -12,12 +12,12 @@ interface DonutChartProps {
 
 export const DonutChart = ({ title, data, colors, centerLabel }: DonutChartProps) => {
   const isMobile = useIsMobile();
-  
+
   const defaultColors = [
     "hsl(var(--client-yes))",
     "hsl(var(--client-no))"
   ];
-  
+
   // Generate colors based on value intensity using new blue palette
   const getColorByValue = (value: number, maxValue: number) => {
     const intensity = value / maxValue;
@@ -26,7 +26,7 @@ export const DonutChart = ({ title, data, colors, centerLabel }: DonutChartProps
     const lightness = Math.round(85 - (intensity * 55)); // 85% to 30%
     return `hsl(${hue}, ${saturation}%, ${lightness}%)`;
   };
-  
+
   const maxValue = Math.max(...data.map(d => d.value));
   const chartColors = colors || data.map(item => getColorByValue(item.value, maxValue));
   const total = data.reduce((sum, item) => sum + item.value, 0);
@@ -63,6 +63,9 @@ export const DonutChart = ({ title, data, colors, centerLabel }: DonutChartProps
               fill="#8884d8"
               dataKey="value"
             >
+              <text x="50%" y="50%" textAnchor="middle" dominantBaseline="middle" className="fill-foreground text-sm font-semibold">
+                {centerLabel}
+              </text>
               {data.map((entry, index) => (
                 <Cell key={`cell-${index}`} fill={chartColors[index % chartColors.length]} />
               ))}
