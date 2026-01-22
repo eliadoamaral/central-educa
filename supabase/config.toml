@@ -1,0 +1,7 @@
+project_id = "tqwrampyxoasfliunkwi"
+
+[functions.validate-email-domain]
+verify_jwt = false
+
+[functions.ai-insights]
+verify_jwt = false

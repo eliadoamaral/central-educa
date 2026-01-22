@@ -1,0 +1,3 @@
+# Funcionalidades
+
+**Em desenvolvimento**
